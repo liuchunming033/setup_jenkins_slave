@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+# jenkins-slave:    Launch a Jenkins Slave instance on this node
+# /etc/init.d/jenkins-slave
+# chkconfig:    - 99 01
+# description:  Enable this node
+
+#
+# Source function library.
+. /etc/rc.d/init.d/functions
+[ -f /etc/sysconfig/jenkins-slave ] && . /etc/sysconfig/jenkins-slave
+[ -n "$JENKINS_URL" ] || exit 0
+[ -n "$JENKINS_WORKDIR" ] || exit 0
+[ -n "$JENKINS_NODENAME" ] || exit 0
+[ -x /usr/bin/java ] || exit 0
+
+download_jar()
+{
+    curl -s -o slave.jar $JENKINS_URL/jnlpJars/slave.jar || exit 0
+}
+
+start()
+{
+    cd $JENKINS_WORKDIR
+    [ -f slave.jar ] || download_jar
+        echo -n $"Starting Jenkins Slave: "
+        sh -c "java -jar slave.jar \
+             -jnlpUrl $JENKINS_URL/computer/$JENKINS_NODENAME/slave-agent.jnlp -secret $JENKINS_SECRET \
+             >slave.log 2>&1 &"
+        echo "[OK]".
+}
+
+stop()
+{
+        echo -n $"Shutting down Jenkins Slave: "
+        ps -ef | grep "java -jar slave.jar" | grep -v grep | cut -c 10-15| sudo xargs kill -s 9
+        echo "[OK]".
+}
+
+ # See how we were called.
+case "$1" in
+  start)
+    start
+        ;;
+  stop)
+    stop
+        ;;
+  restart|reload)
+    stop
+    start
+    ;;
+  status)
+    status java
+    ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload}"
+        exit 1
+esac
+exit 0
