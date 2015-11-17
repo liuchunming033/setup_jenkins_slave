@@ -1,5 +1,6 @@
 # Configuration file for Jenkins slave service
 # Put it into /etc/sysconfig/
+# Change below settings to your own
 
 # Remote root directory
 JENKINS_WORKDIR="/data/jenkins-slave"
