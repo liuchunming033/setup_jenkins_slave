@@ -1,15 +1,15 @@
 #!/bin/sh
 #
-# Program:    
+# Program:
 #    Launch a Jenkins Slave instance on this node
 # chkconfig:    - 99 01
 # description:  Enable this node
 
-PATH=$PATH:$JAVA_HOME/bin
-export PATH
-
 # Source function library.
 . /etc/rc.d/init.d/functions
+# Source environment varibales : PATH etc
+. /etc/profile
+
 [ -f /etc/sysconfig/jenkins-slave ] && . /etc/sysconfig/jenkins-slave
 [ -n "$JENKINS_URL" ] || exit 0
 [ -n "$JENKINS_WORKDIR" ] || exit 0
@@ -26,15 +26,15 @@ start()
     echo $JENKINS_URL
     echo -n "Remote root directory is: "
     echo $JENKINS_WORKDIR
-    echo -n "Jenkins slave is:"
+    echo -n "Jenkins slave is: "
     echo $JENKINS_NODENAME
     [ -d $JENKINS_WORKDIR ] || mkdir -p $JENKINS_WORKDIR
     cd $JENKINS_WORKDIR
     [ -f slave.jar ] || download_jar
         echo -n $"Starting Jenkins Slave: "
         sh -c "java -jar slave.jar \
-             -jnlpUrl $JENKINS_URL/computer/$JENKINS_NODENAME/slave-agent.jnlp -secret $JENKINS_SECRET \
-             >slave.log 2>&1 &"
+               -jnlpUrl $JENKINS_URL/computer/$JENKINS_NODENAME/slave-agent.jnlp -secret $JENKINS_SECRET \
+               >slave.log 2>&1 &"
         echo "[OK]".
 }
 
