@@ -26,4 +26,4 @@ service jenkins-slave restart\<br /\>
 
 ### 4.Restart jenkins slave service if it is down
 Run command 'sudo crontab -e'\<br /\>
-Add '*/1 * * * * cd /data/jenkins-slave/  && sh monitor_jenkins.sh' to cron\<br /\>
+Add '*/1 * * * * cd /data/jenkins-slave/ && sh jenkins-monitor.sh >> /tmp/jenkins-slave.log 2>&1' to cron\<br /\>
