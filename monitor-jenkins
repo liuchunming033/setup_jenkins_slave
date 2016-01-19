@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+HOME=/
+
+*/1 * * * * root sh /data/jenkins-slave/jenkins-monitor.sh >> /tmp/jenkins-slave.log 2>&1

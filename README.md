@@ -25,5 +25,6 @@ chkconfig --level 3 jenkins-slave on\<br /\>
 service jenkins-slave restart\<br /\>
 
 ### 4.Restart jenkins slave service if it is down
-Run command 'sudo crontab -e'\<br /\>
-Add '*/1 * * * * cd /data/jenkins-slave/ && sh jenkins-monitor.sh >> /tmp/jenkins-slave.log 2>&1' to cron\<br /\>
+Run command 'chmod 644 monitor-jenkins'\<br /\>
+Copy monitor-jenkins to /etc/cron.d/ \<br /\>
+Restart crond service : service crond restart \<br /\>
