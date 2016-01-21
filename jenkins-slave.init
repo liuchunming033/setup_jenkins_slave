@@ -22,6 +22,8 @@ download_jar()
 
 start()
 {
+    echo -n "Now is: "
+    echo `date`:
     echo -n "Jenkins master is: "
     echo $JENKINS_URL
     echo -n "Remote root directory is: "
