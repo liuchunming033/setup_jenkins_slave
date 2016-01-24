@@ -1,4 +1,4 @@
-This project is about how to create a build slave for a Jenkins master in an easy way. 
+This project is about how to create a build slave for a Jenkins master in an easy way.Monitor jenkins slave and restart slave when it is down
 
 ### 1. Add the node on Jenkins master
 Add a new Dumb Slave node in your Jenkins master,configure below settings:\<br /\>  
@@ -18,13 +18,4 @@ Conection secret:\<br /\>
 JENKINS_SECRET="198e4eef9a83ce29c02c0373303223271f6583cd429c6ab98c0f39839d870496"\<br /\>  
 
 ### 3. Install jenkins-slave service on slave node
-cp jenkins-slave.conf /etc/sysconfig/jenkins-slave<\<br /\>  
-cp jenkins-slave.init /etc/init.d/jenkins-slave\<br /\>  
-chmod 770 /etc/init.d/jenkins-slave\<br /\>  
-chkconfig --level 3 jenkins-slave on\<br /\>  
-service jenkins-slave restart\<br /\>
-
-### 4.Restart jenkins slave service if it is down
-Run command 'chmod 644 monitor-jenkins'\<br /\>
-Copy monitor-jenkins to /etc/cron.d/ \<br /\>
-Restart crond service : service crond restart \<br /\>
+sudo sh setup.sh
