@@ -11,9 +11,9 @@ Launch Method: Launch slave agent via Java Web Start\<br /\>
 Remote root directory:\<br /\>  
 JENKINS_WORKDIR="/data/jenkins-slave"\<br /\>  
 Jenkins master:\<br /\>  
-JENKINS_URL="http://10.33.20.85:8080"\<br /\>  
+JENKINS_URL="http://jenkins-master-ip:8080"\<br /\>  
 Dumb Slave node in your Jenkins master:\<br /\>  
-JENKINS_NODENAME="10.10.33.12_CentOS"\<br /\>  
+JENKINS_NODENAME="jenkins-slave-node-name"\<br /\>  
 Conection secret:\<br /\>  
 JENKINS_SECRET="198e4eef9a83ce29c02c0373303223271f6583cd429c6ab98c0f39839d870496"\<br /\>  
 
